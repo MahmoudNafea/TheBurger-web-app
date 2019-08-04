@@ -22,7 +22,7 @@ class ContactData extends Component {
         this.setState({ loading: true });
         const order = {
             ingredients: this.props.ingredients,
-            totalPrice: this.props.price,
+            price: this.props.price,
             customer: {
                 name: 'Mahmoud',
                 address: 'Chow kit'
@@ -30,7 +30,7 @@ class ContactData extends Component {
             deliveryMethod: 'fastest'
 
         }
-        axios.post('/orders.json', order.ingredients)
+        axios.post('/orders.json', order)
             .then(response => {
                 this.setState({ loading: false });
                 this.props.history.push('/')

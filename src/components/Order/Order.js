@@ -2,16 +2,16 @@ import React from 'react';
 import classes from './Order.module.css'
 
 const order = (props) => {
-    const Ingredients = [];
+    const ingredients = [];
 
-    for (let ingredientName in props.Ingredients) {
-        Ingredients.push({
+    for (let ingredientName in props.ingredients) {
+        ingredients.push({
             name: ingredientName,
-            amount: props.Ingredients[ingredientName]
+            amount: props.ingredients[ingredientName]
         })
     }
 
-    const ingredientOutput = Ingredients.map(ig => {
+    const ingredientOutput = ingredients.map(ig => {
         return <span
             style={{
                 textTransform: 'capitalize',
