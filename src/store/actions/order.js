@@ -72,7 +72,7 @@ export const fetchOrders = (token, userId) => {
                         id: key
                     });
                 }
-                dispatch(fetchOrdersSuccess(fetchOrders))
+                dispatch(fetchOrdersSuccess(fetchedOrders))
             }).catch(err => {
                 dispatch(fetchOrdersFail(err))
             })
