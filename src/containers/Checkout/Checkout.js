@@ -6,9 +6,14 @@ import ContactData from './ContactData/ContactData';
 
 class Checkout extends Component {
 
-    CheckoutContinuedHandler = () => {
+    checkoutContinuedHandler = () => {
         this.props.history.replace('/checkout/contact-data');
     }
+
+    checkoutCancelledHandler = () => {
+        this.props.history.goBack();
+    }
+
     render() {
         let summary = <Redirect to="/" />
         if (this.props.ings) {
@@ -19,8 +24,8 @@ class Checkout extends Component {
                     {purchasedRedirect}
                     <CheckoutSummary
                         ingredients={this.props.ings}
-                        CheckoutCancelled={this.CheckoutCancelledHandler}
-                        CheckoutContinued={this.CheckoutContinuedHandler} />
+                        checkoutCancelled={this.checkoutCancelledHandler}
+                        checkoutContinued={this.checkoutContinuedHandler} />
                     <Route path={this.props.match.path + '/contact-data'}
                         component={ContactData} />
                 </div>

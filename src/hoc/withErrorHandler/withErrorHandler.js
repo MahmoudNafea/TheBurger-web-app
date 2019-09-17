@@ -4,40 +4,29 @@ import Aux from '../Auxillary';
 
 const withErrorHandler = (WrappedComponent, axios) => {
     return class extends Component {
-
         state = {
             error: null
         }
 
-        eqInterceptor = axios.interceptors.request.use(
-            req => {
+        componentWillMount() {
+            this.reqInterceptor = axios.interceptors.request.use(req => {
                 this.setState({ error: null });
                 return req;
-            }
-        );
-        resInterceptor = axios.interceptors.response.use(
-            res => res,
-            error => this.setState({ error })
-        );
-        // componentWillMount() {
-        //     axios.interceptors.request.eject(this.reqInterceptor);
-        //     axios.interceptors.response.eject(this.resInterceptor);
+            });
+            this.resInterceptor = axios.interceptors.response.use(res => res, error => {
+                this.setState({ error: error });
+            });
+        }
 
-        // }
         componentWillUnmount() {
-            // this.reqInterceptor = axios.interceptors.request.use(req => {
-            //     this.setState({ error: null });
-            //     return req;
-            // });
-            // this.resInterceptor = axios.interceptors.response.use(res => res, error => {
-            //     this.setState({ error: error });
-            // });
             axios.interceptors.request.eject(this.reqInterceptor);
             axios.interceptors.response.eject(this.resInterceptor);
         }
+
         errorConfirmedHandler = () => {
-            this.setState({ error: null })
+            this.setState({ error: null });
         }
+
         render() {
             return (
                 <Aux>
@@ -47,10 +36,10 @@ const withErrorHandler = (WrappedComponent, axios) => {
                         {this.state.error ? this.state.error.message : null}
                     </Modal>
                     <WrappedComponent {...this.props} />
-                </Aux >
+                </Aux>
             );
         }
-
     }
 }
+
 export default withErrorHandler;
